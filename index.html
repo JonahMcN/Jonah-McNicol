@@ -1,162 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Engineer Portfolio</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Cascadia+Code&display=swap");
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Jonah McNicol — CNC retrofit and control system design. Glasgow-based graduate engineer.">
+  <title>Jonah McNicol — CNC Control Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        font-family: "Cascadia Code", monospace;
-        display: flex;
-        background-color: #121212;
-        color: #ffffff;
-      }
-      .sidebar {
-        width: 300px;
-        background: #1e1e1e;
-        color: white;
-        padding: 20px;
-        height: 100vh;
-        position: fixed;
-        display: flex;
-        flex-direction: column;
-      }
-      .sidebar h2 {
-        color: #ff9800;
-        margin-bottom: 20px;
-      }
-      .sidebar .nav-links {
-        flex-grow: 1;
-      }
-      .main-content {
-        margin-left: 320px;
-        padding: 40px;
-        max-width: 900px;
-        flex-grow: 1;
-      }
-      h1,
-      h2,
-      h3 {
-        color: #ff9800;
-        margin-bottom: 10px;
-      }
-      .section {
-        background: #1e1e1e;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(255, 152, 0, 0.2);
-      }
-      .image-slider,
-      .image-gallery {
-        display: flex;
-        overflow-x: auto;
-        gap: 10px;
-        padding: 10px;
-      }
-      .image-slider img,
-      .image-gallery img {
-        max-width: 100%;
-        border-radius: 5px;
-        border: 2px solid #ff9800;
-      }
-      .nav-links a {
-        display: block;
-        color: #ff9800;
-        text-decoration: none;
-        padding: 10px 0;
-        transition: 0.3s;
-      }
-      .nav-links a:hover {
-        color: #ffffff;
-      }
-      .download-cv {
-        display: inline-block;
-        background: #ff9800;
-        color: black;
-        padding: 10px 15px;
-        border-radius: 5px;
-        text-decoration: none;
-        margin-top: 10px;
-      }
-      .timeline {
-        list-style: none;
-        padding: 0;
-      }
-      .timeline li {
-        padding: 10px;
-        margin-bottom: 10px;
-        background: #2a2a2a;
-        border-left: 4px solid #ff9800;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="sidebar">
-      <h2>Engineer Portfolio</h2>
-      <p>Showcasing Projects & Skills</p>
-      <div class="nav-links">
-        <a href="#about">About Me</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#timeline">Experience</a>
-        <a href="#contact">Contact</a>
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --accent: #e8c547;
+      --dim: #888888;
+      --border: #222222;
+      --col: 900px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: var(--col);
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+
+    .name {
+      font-size: clamp(48px, 10vw, 88px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .photo {
+      width: 130px;
+      height: 160px;
+      object-fit: cover;
+      object-position: center top;
+      filter: grayscale(100%) contrast(1.1);
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .tagline {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+
+    .meta {
+      font-size: 12px;
+      color: var(--dim);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SECTION LABELS ── */
+    .label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 16px;
+    }
+
+    /* ── SERVICES ── */
+    .services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+
+    .service-item {
+      background: var(--black);
+      padding: 20px 24px;
+    }
+
+    .service-item h3 {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--white);
+    }
+
+    .service-item p {
+      font-size: 12px;
+      color: var(--dim);
+      line-height: 1.5;
+    }
+
+    /* ── EXPERIENCE ── */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+
+    .exp-item:first-child { border-top: 1px solid var(--border); }
+
+    .exp-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .exp-sub {
+      font-size: 12px;
+      color: var(--dim);
+      margin-top: 3px;
+    }
+
+    .exp-date {
+      font-size: 11px;
+      color: var(--dim);
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── TWO COL ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-item:first-child { border-top: 1px solid var(--border); }
+    .edu-title { font-size: 13px; font-weight: 500; }
+    .edu-sub { font-size: 12px; color: var(--dim); margin-top: 3px; }
+
+    /* ── INTERESTS ── */
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      color: var(--dim);
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .tag:hover {
+      color: var(--white);
+      border-color: var(--dim);
+    }
+
+    /* ── CONTACT STRIP ── */
+    .contact-strip {
+      margin-top: 40px;
+      border: 1px solid var(--border);
+      padding: 28px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .contact-strip .cta {
+      font-size: 13px;
+      color: var(--dim);
+    }
+
+    .contact-strip a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: opacity 0.15s;
+    }
+
+    .contact-strip a:hover { opacity: 0.7; }
+
+    .contact-strip .rates {
+      font-size: 11px;
+      color: var(--dim);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin-top: 48px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--border);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── AVAILABILITY BADGE ── */
+    .avail {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    .avail::before {
+      content: '';
+      display: block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4caf50;
+      box-shadow: 0 0 6px #4caf5088;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: white; color: black; }
+      .page { padding: 20mm; }
+      .contact-strip { border-color: #ccc; }
+      .services { background: #ccc; }
+      .name { font-size: 72px; }
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .header { grid-template-columns: 1fr; }
+      .photo { width: 100px; height: 120px; }
+      .services { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; gap: 32px; }
+      .contact-strip { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="name">Jonah<br>McNicol</div>
+    </div>
+    <img class="photo" src="photo.jpg" alt="Jonah McNicol">
+  </div>
+
+  <p class="tagline">CNC retrofit and control system design</p>
+  <p class="meta">Glasgow, Scotland &nbsp;·&nbsp; <span class="avail">Available for contract work</span> &nbsp;·&nbsp; Rates on request</p>
+
+  <hr>
+
+  <!-- SERVICES -->
+  <p class="label">Services</p>
+  <div class="services">
+    <div class="service-item">
+      <h3>CNC Control Systems</h3>
+      <p>Full control system design from scratch — hardware, firmware, motion.</p>
+    </div>
+    <div class="service-item">
+      <h3>Machine Retrofit</h3>
+      <p>Replacing legacy or proprietary controllers with modern, open systems. Bring old machines back to full capability.</p>
+    </div>
+    <div class="service-item">
+      <h3>CAD &amp; Mechanical Design</h3>
+      <p>Component and assembly design for manufactured products. Experienced with geometry dependancies and production constraints.</p>
+    </div>
+    <div class="service-item">
+      <h3>Embedded &amp; Low-Level Systems</h3>
+      <p>Firmware, real-time control loops, hardware integration. Comfortable at the boundary of software and electronics.</p>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- EXPERIENCE -->
+  <p class="label">Experience</p>
+  <div class="experience-list">
+    <div class="exp-item">
+      <div>
+        <div class="exp-title">CNC Control System Development — Additive Manufacturing</div>
+        <div class="exp-sub">5-motor control system designed and built from the ground up. Hardware selection, wiring, firmware, motion control.</div>
+      </div>
+      <div class="exp-date">2024–2025</div>
+    </div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-title">CAD Consultant — Advanced Showers</div>
+        <div class="exp-sub">Mechanical design and CAD modelling for manufactured shower products.</div>
+      </div>
+      <div class="exp-date">2024</div>
+    </div>
+    <div class="exp-item">
+      <div>
+        <div class="exp-title">Suspension Development — Shell Eco Marathon</div>
+        <div class="exp-sub">Design and development of lightweight suspension system for ultra-efficient competition vehicle. Raced in France.</div>
+      </div>
+      <div class="exp-date">2023–2024</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- EDUCATION + INTERESTS -->
+  <div class="two-col">
+
+    <div>
+      <p class="label">Education</p>
+      <div class="edu-item">
+        <div class="edu-title">MEng Mechanical Engineering</div>
+        <div class="edu-sub">University of Strathclyde &nbsp;·&nbsp; 2021–2026</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-title">Exchange Year</div>
+        <div class="edu-sub">Technical University of Denmark &nbsp;·&nbsp; 2023–2024</div>
       </div>
     </div>
-    <div class="main-content">
-      <div class="section" id="about">
-        <h1>About Me</h1>
-        <p>
-          Hello! I'm an engineer passionate about technology and innovation.
-          Here, you’ll find an overview of my academic and professional journey,
-          along with my projects.
-        </p>
-        <a href="cv.pdf" class="download-cv" download>Download My CV</a>
-      </div>
 
-      <div class="section" id="skills">
-        <h2>Skills</h2>
-        <ul>
-          <li>Python, C++, JavaScript</li>
-          <li>Machine Learning & AI</li>
-          <li>Embedded Systems</li>
-          <li>3D Modeling & CAD Design</li>
-          <li>Data Visualization</li>
-        </ul>
-      </div>
-
-      <div class="section" id="projects">
-        <h2>Projects</h2>
-        <div class="image-slider">
-          <img src="project1.jpg" alt="Project 1" />
-          <img src="project2.jpg" alt="Project 2" />
-          <img src="project3.jpg" alt="Project 3" />
-        </div>
-      </div>
-
-      <div class="section" id="gallery">
-        <h2>Gallery</h2>
-        <p>Here are some additional images of my work.</p>
-        <div class="image-gallery">
-          <img src="image1.jpg" alt="Gallery Image 1" />
-          <img src="image2.jpg" alt="Gallery Image 2" />
-        </div>
-      </div>
-
-      <div class="section" id="contact">
-        <h2>Contact</h2>
-        <p>Email: engineer@example.com</p>
-        <p>LinkedIn: linkedin.com/in/engineer</p>
-        <p>GitHub: github.com/engineer</p>
+    <div>
+      <p class="label">Currently Developing</p>
+      <div class="tag-list">
+        <span class="tag">Beowulf Clusters</span>
+        <span class="tag">HPC</span>
+        <span class="tag">Parallel Computing</span>
+        <span class="tag">Low-Level Programming</span>
+        <span class="tag">Practical Electronics</span>
       </div>
     </div>
-  </body>
+
+  </div>
+
+  <hr>
+
+  <!-- CONTACT -->
+  <div class="contact-strip">
+    <div>
+      <a href="mailto:jonah.mcnicol@gmail.com">jonah.mcnicol@gmail.com</a>
+    </div>
+    <div class="rates">Rates on request &nbsp;·&nbsp; Graduating 2026 &nbsp;·&nbsp; Available now</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>jonahmcnicol.com</span>
+    <span>Glasgow, Scotland</span>
+  </div>
+
+</div>
+</body>
 </html>
